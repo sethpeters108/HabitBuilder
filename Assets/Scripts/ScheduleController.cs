@@ -97,5 +97,19 @@ public class ScheduleController : MonoBehaviour
     {
         this.habitIndex = habitIndex;
     }
+    
+    public int getHabitIndex()
+    {
+        return habitIndex;
+    }
+    public List<Habit> Habits
+    {
+        get { return habits; }
+        set { habits = value; }
+    }
 
+    public Habit getCurrHabit()
+    {
+        return Habits[habitIndex];
+    }
 }

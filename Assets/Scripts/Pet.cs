@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pet
+public class Pet : MonoBehaviour
 {
     [SerializeField] private string petName;
     [SerializeField] private int age;
@@ -14,11 +14,12 @@ public class Pet
 
     public Pet(string name)
     {
+        barContoller = (BarContoller)FindObjectOfType(typeof(BarContoller));
         this.petName = name;
         age = 0;
-        health = 1;
-        hunger = 1;
-        fun = 1;
+        Health = 0.5f;
+        Hunger = 0.5f;
+        Fun = 0.5f;
     }
 
 
@@ -64,5 +65,36 @@ public class Pet
             barContoller.SetFun(fun);
         }
     }
+
+    public void increaseHealth(float value)
+    {
+        Health += value;
+    }
+
+    public void increaseHunger(float value)
+    {
+        Hunger += value;
+    }
+
+    public void increaseFun(float value)
+    {
+        Fun += value;
+    }
+
+    public void decreaseHealth(float value)
+    {
+        Health -= value;
+    }
+
+    public void decreaseHunger(float value)
+    {
+        Hunger -= value;
+    }
+
+    public void decreaseFun(float value)
+    {
+        Fun -= value;
+    }
+
 
 }

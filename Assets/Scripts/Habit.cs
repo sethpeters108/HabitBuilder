@@ -19,10 +19,13 @@ public class Habit : MonoBehaviour
 {
     private string habitName;
     private Day[] activeDays;
-    private Pet pet;
+    public Pet pet;
     private int foodAmount;
     private int ballAmount;
     private int brushAmount;
+    private float timer;
+
+    private float DECREASE_RATE = 0.1f;
 
     public Habit(string habitName, string petName)
     {
@@ -32,7 +35,9 @@ public class Habit : MonoBehaviour
         foodAmount = 0;
         ballAmount = 0;
         brushAmount = 0;
+        timer = 0.0f;
         initDays();
+        
     }
 
     private void initDays()
@@ -106,5 +111,25 @@ public class Habit : MonoBehaviour
     {
         get => brushAmount;
         set => brushAmount = value;
+    }
+
+    private void decreasePetStats()
+    {
+        // if 0.5 hour has elapsed, decrease var by 0.1 and reset timer
+        if (timer >= 1800.0f)
+        {
+            pet.decreaseFun(DECREASE_RATE);
+            pet.decreaseHealth(DECREASE_RATE);
+            pet.decreaseHunger(DECREASE_RATE);
+            timer = 0.0f;
+        }
+    }
+
+    private void Update()
+    {
+        // increment timer by Time.deltaTime
+        timer += Time.deltaTime;
+
+        decreasePetStats();
     }
 }
