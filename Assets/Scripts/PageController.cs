@@ -17,11 +17,11 @@ public class PageController : MonoBehaviour
         
     }
 
-    public void ToProgressPage()
+    public void ToPage(string pageName)
     {
         for(int i = 0; i < pages.Length; i++)
         {
-            if (!pages[i].name.Equals("ProgressPage"))
+            if (!pages[i].name.Equals(pageName))
             {
                 pages[i].SetActive(false);
             }
@@ -31,4 +31,5 @@ public class PageController : MonoBehaviour
             }
         }
     }
+
 }
