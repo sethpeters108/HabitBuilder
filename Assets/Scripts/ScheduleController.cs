@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class ScheduleController : MonoBehaviour
 {
     [SerializeField] private List<Habit> habits;
     [SerializeField] private Button[] dayBtns;
     [SerializeField] private int dayIndex;
     [SerializeField] private int habitIndex;
+    [SerializeField] private TMP_Dropdown hours;
+    [SerializeField] private TMP_Dropdown minutes;
+    [SerializeField] private TMP_Dropdown seconds;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +25,31 @@ public class ScheduleController : MonoBehaviour
         
     }
 
+    private void LoadMinutesAndSec()
+    {
+        minutes.ClearOptions();
+        seconds.ClearOptions();
+        List<string> zeroTo59 = new List<string>();
+        for(int i = 59; i >= 0; i--)
+        {
+            zeroTo59.Add(i.ToString());
+            
+        }
+        minutes.AddOptions(zeroTo59);
+        seconds.AddOptions(zeroTo59);
+    }
+
+    public void HandleInputHour(int val)
+    {
+        Debug.Log(hours.value);
+        Debug.Log(hours.options[val].text);
+    }
+
     public void LoadHabitSchedule()
     {
         //TestCode
         habitIndex = 0;
-
+        LoadMinutesAndSec();
         Debug.Log(habits[habitIndex].HabitName);
         Debug.Log(habits[habitIndex].PetName);
         for(int i = 0; i < 7; i++)
