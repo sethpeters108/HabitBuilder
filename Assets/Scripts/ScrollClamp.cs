@@ -17,9 +17,9 @@ public class ScrollClamp : MonoBehaviour
         if(rectTransform.localPosition.y < 0)
         {
             rectTransform.localPosition = Vector3.zero;
-        }else if (rectTransform.localPosition.y > 376)
+        }else if (rectTransform.localPosition.y > rectTransform.rect.height)
         {
-            rectTransform.localPosition = new Vector3(0,376,0);
+            rectTransform.localPosition = new Vector3(0, rectTransform.rect.height, 0);
         }
     }
 }
