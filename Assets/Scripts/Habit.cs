@@ -6,12 +6,31 @@ public struct Day
 {
     public bool isActive;
     public List<string> tasks;
-    public List<DateTime> notificationTimes;
-    public Day(bool isActive, List<string> tasks, List<DateTime> notificationTimes)
+    public Time notificationTime;
+    public int beforeOffset;
+    public int afterOffset;
+    public Day(bool isActive, List<string> tasks, Time notificationTimes, int beforeOffset, int afterOffset)
     {
         this.isActive = isActive;
         this.tasks = tasks;
-        this.notificationTimes = notificationTimes;
+        this.notificationTime = notificationTimes;
+        this.beforeOffset = beforeOffset;
+        this.afterOffset = afterOffset;
+    }
+}
+
+public struct Time
+{
+    public int hour;
+    public int minute;
+    public int second;
+    public int ampm;
+    public Time(int hour, int minute, int second, int ampm)
+    {
+        this.hour = hour;
+        this.minute = minute;
+        this.second = second;
+        this.ampm = ampm;
     }
 }
 
@@ -39,7 +58,7 @@ public class Habit : MonoBehaviour
     {
         for(int i = 0; i < activeDays.Length; i++)
         {
-            activeDays[i] = new Day(false, new List<string>(), new List<DateTime>());
+            activeDays[i] = new Day(false, new List<string>(), new Time(12, 59, 59,0),0,0);
         }
     }
 
@@ -60,20 +79,62 @@ public class Habit : MonoBehaviour
         }
     }
 
-    public void AddNotificationTime(int dayIndex, DateTime time)
+
+    public void SetBeforeOffset(int dayIndex, int offset)
     {
         if (dayIndex >= 0 && dayIndex < 7)
         {
-            activeDays[dayIndex].notificationTimes.Add(time);
+            activeDays[dayIndex].beforeOffset = offset;
         }
     }
+
+    public void SetAfterOffset(int dayIndex, int offset)
+    {
+        if (dayIndex >= 0 && dayIndex < 7)
+        {
+            activeDays[dayIndex].afterOffset = offset;
+        }
+    }
+
+    public void SetNotificationTimeHour (int dayIndex, int time)
+    {
+        if (dayIndex >= 0 && dayIndex < 7)
+        {
+            activeDays[dayIndex].notificationTime.hour = time;
+        }
+    }
+
+    public void SetNotificationTimeMinute(int dayIndex, int time)
+    {
+        if (dayIndex >= 0 && dayIndex < 7)
+        {
+            activeDays[dayIndex].notificationTime.minute = time;
+        }
+    }
+    public void SetNotificationTimeAmPm(int dayIndex, int ampm)
+    {
+        if (dayIndex >= 0 && dayIndex < 7)
+        {
+            activeDays[dayIndex].notificationTime.ampm = ampm;
+        }
+    }
+
     public Day GetDay(int dayIndex)
     {
         if (dayIndex >= 0 && dayIndex < 7)
         {
             return activeDays[dayIndex];
         }
-        return new Day(false, null, null); ;
+        return new Day(false, null, new Time(12, 59, 59, 0),0,0);
+    }
+
+    public Time GetTime(int dayIndex)
+    {
+        if (dayIndex >= 0 && dayIndex < 7)
+        {
+            return activeDays[dayIndex].notificationTime;
+        }
+        return new Time();
     }
 
     public string HabitName
