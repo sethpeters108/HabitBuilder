@@ -125,7 +125,7 @@ public class Habit : MonoBehaviour
         {
             return activeDays[dayIndex];
         }
-        return new Day(false, null, new Time(12, 59, 59, 0),0,0);
+        return new Day(false, null, new Time(12, 0, 0, 0),0,0);
     }
 
     public Time GetTime(int dayIndex)
