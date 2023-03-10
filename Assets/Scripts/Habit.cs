@@ -58,7 +58,7 @@ public class Habit : MonoBehaviour
     {
         for(int i = 0; i < activeDays.Length; i++)
         {
-            activeDays[i] = new Day(false, new List<string>(), new Time(12, 59, 59,0),0,0);
+            activeDays[i] = new Day(false, new List<string>(), new Time(12, 0, 0,0),0,0);
         }
     }
 
