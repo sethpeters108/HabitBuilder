@@ -5,22 +5,26 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDragHandler
 {
 
     [SerializeField] private Canvas canvas;
 
     private RectTransform rectTransform;
     [SerializeField] private GameObject imagePrefab;
+    [SerializeField] private string itemName;
     private Image buttonIcon;
 
     private Image draggedImage;
     private RectTransform canvasRectTransform;
     private RectTransform imageRectTransform;
     private bool dragging;
+    private CanvasGroup canvasGroup;
 
-
-    void Start()
+    private void Awake()
+    {
+    }
+        void Start()
     {
         buttonIcon = GetComponent<Image>();
         canvas = FindObjectOfType<Canvas>();
@@ -30,13 +34,10 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         float width = buttonIcon.rectTransform.rect.width;
         float height = buttonIcon.rectTransform.rect.height;
 
-        Debug.Log("Image size: " + width + " x " + height);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("OnBeginDrag");
-        dragging = true;
 
         // Create a new instance of the image prefab
         GameObject imageObject = Instantiate(imagePrefab, canvas.transform);
@@ -56,7 +57,9 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         float width = imageRectTransform.rect.width;
         float height = imageRectTransform.rect.height;
 
-        Debug.Log("big Image size: " + width + " x " + height);
+        canvasGroup = imageObject.GetComponent<CanvasGroup>();
+        canvasGroup.blocksRaycasts = false;
+
     }
 
     public static void MatchOther(RectTransform rt, RectTransform other)
@@ -83,24 +86,16 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("OnEndDrag");
-        dragging = false;
+        canvasGroup.blocksRaycasts = true;
 
         // Destroy the image when the drag ends
         Destroy(draggedImage.gameObject);
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        Debug.Log("OnPointerDown");
-    }
 
     void Update()
     {
-        if (dragging)
-        {
-            // Ensure that the image stays on top of other UI elements
-        }
+
     }
 
 }

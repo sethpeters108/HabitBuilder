@@ -23,12 +23,16 @@ public class BarContoller : MonoBehaviour
     {
         hungerSlider.value = hunger;
         hungerFill.color = grad.Evaluate(hungerSlider.normalizedValue);
+        Debug.Log(hungerSlider.normalizedValue);
+        Debug.Log(hunger);
     }
 
     public void SetFun(float fun)
     {
         funSlider.value = fun;
         funFill.color = grad.Evaluate(funSlider.normalizedValue);
+        Debug.Log(funSlider.normalizedValue);
+        Debug.Log(fun);
     }
 
     // TODO: Test Code Remove Later

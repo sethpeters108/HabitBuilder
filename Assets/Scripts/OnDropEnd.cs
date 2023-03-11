@@ -11,12 +11,21 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
     [SerializeField]private ScheduleController scheduleController;
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("OnDrop");
         if (eventData.pointerDrag != null)
         {
             Pet currPet = scheduleController.getCurrHabit().pet;
-            currPet.increaseHunger(0.2f);
-            //eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
+
+            if (eventData.pointerDrag.name.Equals("FoodBtn")){
+                currPet.increaseHunger(AMOUNT);
+            }else if (eventData.pointerDrag.name.Equals("BallBtn"))
+            {
+                currPet.increaseFun(AMOUNT);
+            }
+            else if (eventData.pointerDrag.name.Equals("BrushBtn"))
+            {
+                currPet.increaseHealth(AMOUNT);
+            }
+
         }
     }
 
