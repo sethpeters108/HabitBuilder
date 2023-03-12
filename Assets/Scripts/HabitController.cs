@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class ScheduleController : MonoBehaviour
+public class HabitController : MonoBehaviour
 {
     [SerializeField] private List<Habit> habits;
     [SerializeField] private Button[] dayBtns;
@@ -108,13 +108,16 @@ public class ScheduleController : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
-
-        List<string> tasks = habits[habitIndex].GetDay(dayIndex).tasks;
-        foreach(string task in tasks)
+        if (habits[habitIndex].GetDay(dayIndex).isActive)
         {
-            GameObject text = Instantiate(textPrefab, tasksDisplayContent.transform);
-            text.GetComponent<TMP_Text>().text = task;
+            List<string> tasks = habits[habitIndex].GetDay(dayIndex).tasks;
+            foreach (string task in tasks)
+            {
+                GameObject text = Instantiate(textPrefab, tasksDisplayContent.transform);
+                text.GetComponent<TMP_Text>().text = task;
+            }
         }
+
     }
 
 
@@ -166,6 +169,7 @@ public class ScheduleController : MonoBehaviour
         }
         else
         {
+            ampm.value = 0;
             hours.value = 0;
         }
 
