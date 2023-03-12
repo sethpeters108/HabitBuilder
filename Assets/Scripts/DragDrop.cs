@@ -5,25 +5,22 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerDownHandler
 {
 
-    [SerializeField] private Canvas canvas;
+    private Canvas canvas;
 
     private RectTransform rectTransform;
     [SerializeField] private GameObject imagePrefab;
-    [SerializeField] private string itemName;
+    [SerializeField] private GameObject petObject;
     private Image buttonIcon;
 
     private Image draggedImage;
     private RectTransform canvasRectTransform;
     private RectTransform imageRectTransform;
-    private bool dragging;
+    private bool isDragging;
     private CanvasGroup canvasGroup;
 
-    private void Awake()
-    {
-    }
         void Start()
     {
         buttonIcon = GetComponent<Image>();
@@ -87,15 +84,21 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
     public void OnEndDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = true;
+        isDragging = false;
 
         // Destroy the image when the drag ends
         Destroy(draggedImage.gameObject);
     }
 
+    
 
     void Update()
     {
 
     }
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        isDragging = true;
+    }
 }

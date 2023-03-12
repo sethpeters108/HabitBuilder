@@ -37,13 +37,13 @@ public class ScheduleController : MonoBehaviour
     void Update()
     {
         // increment timer by Time.deltaTime
-        timer += Time.deltaTime;
+        timer += UnityEngine.Time.deltaTime;
 
         decreasePetStats();
 
         //dayBtns[dayIndex].Select();
         selectedIndicator.transform.position = dayBtns[dayIndex].transform.position;
-        Debug.Log(selectedIndicator.transform.position);
+        //Debug.Log(selectedIndicator.transform.position);
     }
 
     private void decreasePetStats()
