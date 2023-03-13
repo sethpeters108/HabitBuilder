@@ -20,6 +20,9 @@ public class HabitController : MonoBehaviour
     [SerializeField] private TMP_InputField taskInput;
     [SerializeField] private GameObject tasksDisplayContent;
     [SerializeField] private GameObject textPrefab;
+    [SerializeField] private GameObject[] checkableTasksDisplayContent;
+    [SerializeField] private GameObject togglePrefab;
+    [SerializeField] private Slider progressBar;
     private List<string> temp = new List<string>();
     // Start is called before the first frame update
     void Start()
@@ -34,7 +37,7 @@ public class HabitController : MonoBehaviour
     {
         //dayBtns[dayIndex].Select();
         selectedIndicator.transform.position = dayBtns[dayIndex].transform.position;
-        Debug.Log(selectedIndicator.transform.position);
+        //Debug.Log(selectedIndicator.transform.position);
     }
 
     private void LoadMinutesAndSec()
@@ -120,6 +123,53 @@ public class HabitController : MonoBehaviour
 
     }
 
+    public void LoadCheckableTasks()
+    {
+        for(int i = 0; i < checkableTasksDisplayContent.Length; i++)
+        {
+            //Clear
+            foreach (Transform child in checkableTasksDisplayContent[i].transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+            //Add Tasks
+            List<string> tasks = habits[habitIndex].GetDay(i).tasks;
+            foreach (string task in tasks)
+            {
+
+                GameObject toggle = Instantiate(togglePrefab, checkableTasksDisplayContent[i].transform);
+                toggle.GetComponentInChildren<Text>().text = task;
+                toggle.GetComponent<Toggle>().isOn = false;
+                toggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
+                {
+                    if (toggle.GetComponent<Toggle>().isOn)
+                    {
+                        IncreaseProgress(0.1f);
+                        Destroy(toggle);
+                    }
+                    
+                });
+                
+            }
+        }
+        
+        /*
+        foreach (Transform child in checkableTasksDisplayContent.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        if (habits[habitIndex].GetDay(dayIndex).isActive)
+        {
+            List<string> tasks = habits[habitIndex].GetDay(dayIndex).tasks;
+            foreach (string task in tasks)
+            {
+                GameObject toggle = Instantiate(togglePrefab, checkableTasksDisplayContent.transform);
+                toggle.GetComponentInChildren<Text>().text = task;
+            }
+        }
+        */
+    }
+
 
     public void LoadHabitSchedule()
     {
@@ -158,7 +208,6 @@ public class HabitController : MonoBehaviour
         if (habits[habitIndex].GetDay(dayIndex).isActive)
         {
             LoadTasks();
-            Debug.Log("WAA");
             hours.value = 12 - habits[habitIndex].GetTime(dayIndex).hour;
             minutes.value = habits[habitIndex].GetTime(dayIndex).minute;
             ampm.value = habits[habitIndex].GetTime(dayIndex).ampm;
@@ -220,6 +269,18 @@ public class HabitController : MonoBehaviour
                 dayBtns[i].colors = cb;
             }
         }
+    }
+
+    public void IncreaseProgress(float amount)
+    {
+        habits[habitIndex].IncreaseProgress(amount);
+        UpdateProgressSlider();
+        Debug.Log(habits[habitIndex].Progress);
+    }
+
+    public void UpdateProgressSlider()
+    {
+        progressBar.value = habits[habitIndex].Progress;
     }
 
     public void SetDayIndex(int dayIndex)
