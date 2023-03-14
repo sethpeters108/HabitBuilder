@@ -12,7 +12,6 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
 
     private RectTransform rectTransform;
     [SerializeField] private GameObject imagePrefab;
-    [SerializeField] private GameObject petObject;
     private Image buttonIcon;
 
     private Image draggedImage;
@@ -27,10 +26,7 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
         canvas = FindObjectOfType<Canvas>();
         canvasRectTransform = canvas.GetComponent<RectTransform>();
         rectTransform = GetComponent<RectTransform>();
-
-        float width = buttonIcon.rectTransform.rect.width;
-        float height = buttonIcon.rectTransform.rect.height;
-
+        
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -51,12 +47,13 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
         imageRectTransform.anchoredPosition = localPoint;
 
         MatchOther(imageRectTransform, rectTransform);
-        float width = imageRectTransform.rect.width;
-        float height = imageRectTransform.rect.height;
 
         canvasGroup = imageObject.GetComponent<CanvasGroup>();
         canvasGroup.blocksRaycasts = false;
 
+        BoxCollider2D collider = imageObject.GetComponent<BoxCollider2D>();
+        RectTransform imgRectTransform = imageObject.GetComponent<RectTransform>();
+        collider.size = new Vector2(imgRectTransform.rect.width, imgRectTransform.rect.height);
     }
 
     public static void MatchOther(RectTransform rt, RectTransform other)

@@ -51,7 +51,6 @@ public class ScheduleController : MonoBehaviour
         // if 0.5 hour has elapsed, decrease var by 0.1 and reset timer
         if (timer >= 1800.0f)
         {
-
             for (int i = 0; i < habits.Count; i++)
             {
                 habits[i].pet.decreaseFun(DECREASE_RATE);
