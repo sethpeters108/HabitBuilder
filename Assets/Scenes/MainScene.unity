@@ -2612,7 +2612,7 @@ GameObject:
   - component: {fileID: 129539650}
   - component: {fileID: 129539649}
   m_Layer: 5
-  m_Name: Button
+  m_Name: CreateButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2682,7 +2682,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 201436705}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 953584653}
+        m_TargetAssemblyTypeName: HabitController, Assembly-CSharp
+        m_MethodName: MakeNewHabit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 541407658}
+        m_TargetAssemblyTypeName: PageController, Assembly-CSharp
+        m_MethodName: ToPage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: HomePage
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &129539650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7141,7 +7165,7 @@ GameObject:
   - component: {fileID: 583589061}
   - component: {fileID: 583589060}
   m_Layer: 5
-  m_Name: 'PetNameInput '
+  m_Name: PetNameInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8201,17 +8225,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 953584653}
-        m_TargetAssemblyTypeName: ScheduleController, Assembly-CSharp
-        m_MethodName: SetDayActive
-        m_Mode: 6
+      - m_Target: {fileID: 541407658}
+        m_TargetAssemblyTypeName: PageController, Assembly-CSharp
+        m_MethodName: ToPage
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 0,0
-          m_BoolArgument: 1
+          m_StringArgument: AddHabitPage
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &647395667
 MonoBehaviour:
@@ -10940,6 +10964,12 @@ MonoBehaviour:
   taskInput: {fileID: 96714337}
   tasksDisplayContent: {fileID: 402619557}
   textPrefab: {fileID: 3075333407623336625, guid: a5c80fe40b5da794aab39637a09a3d3e, type: 3}
+  habitNameInput: {fileID: 637590882}
+  petNameInput: {fileID: 583589060}
+  petListItemPrefab: {fileID: 8950267427871866011, guid: 47c0f27349644944cac5bf9150e23a91, type: 3}
+  petListItemAdd: {fileID: 432440708}
+  petListScrollArea: {fileID: 1771105283}
+  contentObject: {fileID: 497705621}
 --- !u!4 &953584654
 Transform:
   m_ObjectHideFlags: 0
@@ -16225,7 +16255,7 @@ GameObject:
   - component: {fileID: 1481698502}
   - component: {fileID: 1481698501}
   m_Layer: 5
-  m_Name: 'AddHabitPage '
+  m_Name: AddHabitPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16572,7 +16602,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.7447619, y: 1}
+  m_AnchorMax: {x: 0.62857145, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -18703,7 +18733,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.0000057674097, y: 0}
-  m_SizeDelta: {x: 134, y: 300}
+  m_SizeDelta: {x: 195, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1639113944
 MonoBehaviour:
@@ -19375,7 +19405,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1506109874}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.7447619
+  m_Size: 0.62857145
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -19910,7 +19940,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 51.6, y: -10.146}
+  m_AnchoredPosition: {x: 51.6, y: -10.147}
   m_SizeDelta: {x: 700, y: 356.71}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1771105285
@@ -25273,9 +25303,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3151635419592656288, guid: 47c0f27349644944cac5bf9150e23a91, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 455
+      objectReference: {fileID: 0}
     - target: {fileID: 8950267427871866011, guid: 47c0f27349644944cac5bf9150e23a91, type: 3}
       propertyPath: m_Name
       value: PetListItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 8950267427871866011, guid: 47c0f27349644944cac5bf9150e23a91, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47c0f27349644944cac5bf9150e23a91, type: 3}

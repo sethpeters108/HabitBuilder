@@ -20,13 +20,18 @@ public class HabitController : MonoBehaviour
     [SerializeField] private TMP_InputField taskInput;
     [SerializeField] private GameObject tasksDisplayContent;
     [SerializeField] private GameObject textPrefab;
+    [SerializeField] private TMP_InputField habitNameInput;
+    [SerializeField] private TMP_InputField petNameInput;
+    [SerializeField] private GameObject petListItemPrefab;
+    [SerializeField] private GameObject petListItemAdd;
+    [SerializeField] private GameObject petListScrollArea;
+    [SerializeField] private GameObject contentObject;
     private List<string> temp = new List<string>();
     // Start is called before the first frame update
     void Start()
     {
         habits = new List<Habit>();
         habits.Add(new Habit("TestHabit", "jon"));
-
     }
 
     // Update is called once per frame
@@ -231,6 +236,21 @@ public class HabitController : MonoBehaviour
     public void SetHabitIndex(int habitIndex)
     {
         this.habitIndex = habitIndex;
+    }
+
+    public void MakeNewHabit()
+    {
+        string habitName = habitNameInput.GetComponent<TMP_InputField>().text;
+        string petName = petNameInput.GetComponent<TMP_InputField>().text;
+
+        habits.Add(new Habit(habitName, petName));
+
+        GameObject newHabit = Instantiate(petListItemPrefab, petListScrollArea.transform);
+        newHabit.transform.parent = contentObject.transform;
+        PetListItem PetListItemObject = newHabit.GetComponent<PetListItem>();
+        PetListItemObject.setHabitName(habitName);
+
+        petListItemAdd.transform.SetAsLastSibling();
     }
 
 }
