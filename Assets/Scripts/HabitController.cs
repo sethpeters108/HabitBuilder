@@ -25,45 +25,22 @@ public class HabitController : MonoBehaviour
     [SerializeField] private Slider progressBar;
     private List<string> temp = new List<string>();
     
-    private float timer;
-    private float DECREASE_RATE = 0.1f;
 
     // Start is called before the first frame update
     void Start()
     {
         habits = new List<Habit>();
         habits.Add(new Habit("TestHabit", "jon"));
-        timer = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // increment timer by Time.deltaTime
-        timer += UnityEngine.Time.deltaTime;
-
-        decreasePetStats();
-
         //dayBtns[dayIndex].Select();
         selectedIndicator.transform.position = dayBtns[dayIndex].transform.position;
         //Debug.Log(selectedIndicator.transform.position);
     }
 
-    private void decreasePetStats()
-    {
-        // if 0.5 hour has elapsed, decrease var by 0.1 and reset timer
-        if (timer >= 1800.0f)
-        {
-            for (int i = 0; i < habits.Count; i++)
-            {
-                habits[i].pet.decreaseFun(DECREASE_RATE);
-                habits[i].pet.decreaseHealth(DECREASE_RATE);
-                habits[i].pet.decreaseHunger(DECREASE_RATE);
-                timer = 0.0f;
-            } 
-        }
-        
-    }
 
     private void LoadMinutesAndSec()
     {

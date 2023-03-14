@@ -13,7 +13,7 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
     private RectTransform rectTransform;
     bool setPetText;
 
-    [SerializeField] private ScheduleController scheduleController;
+    [SerializeField] private HabitController habitController;
     [SerializeField] private GameObject petName;
     [SerializeField] private GameObject petAge;
 
@@ -29,7 +29,7 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
     {
         if (eventData.pointerDrag != null)
         {
-            Pet currPet = scheduleController.getCurrHabit().pet;
+            Pet currPet = habitController.getCurrHabit().Pet;
 
             if (eventData.pointerDrag.name.Equals("FoodBtn")){
                 currPet.increaseHunger(AMOUNT);
@@ -57,7 +57,7 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
         if (collision.gameObject.name.StartsWith("Brush"))
         {
             
-            Pet currPet = scheduleController.getCurrHabit().pet;
+            Pet currPet = habitController.getCurrHabit().Pet;
             
             // Calculate the distance moved since the last frame
             float distanceMoved = Vector3.Distance(collision.transform.position, previousPosition);
@@ -71,15 +71,15 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Pet currPet = scheduleController.getCurrHabit().pet;
+            Pet currPet = habitController.getCurrHabit().Pet;
             currPet.decreaseFun(AMOUNT);
             currPet.decreaseHealth(AMOUNT);
             currPet.decreaseHunger(AMOUNT);
         }
         if (!setPetText)
         {
-            petName.GetComponent<TextMeshProUGUI>().text = "Name : " + scheduleController.getCurrHabit().pet.PetName;
-            petAge.GetComponent<TextMeshProUGUI>().text = "Age : " + scheduleController.getCurrHabit().pet.Age;
+            petName.GetComponent<TextMeshProUGUI>().text = "Name : " + habitController.getCurrHabit().Pet.PetName;
+            petAge.GetComponent<TextMeshProUGUI>().text = "Age : " + habitController.getCurrHabit().Pet.Age;
             setPetText = true;
         }
     }
