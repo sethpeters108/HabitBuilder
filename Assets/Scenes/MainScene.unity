@@ -17171,6 +17171,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scheduleController: {fileID: 953584653}
+  petName: {fileID: 342536146}
+  petAge: {fileID: 384486665}
 --- !u!61 &1523628227
 BoxCollider2D:
   m_ObjectHideFlags: 0

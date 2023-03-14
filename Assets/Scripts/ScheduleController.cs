@@ -24,7 +24,7 @@ public class ScheduleController : MonoBehaviour
     
     private float timer;
     private float DECREASE_RATE = 0.1f;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -146,10 +146,11 @@ public class ScheduleController : MonoBehaviour
     public void LoadHabitSchedule()
     {
         //TestCode
-        habitIndex = 0;
+        SetHabitIndex(0);
         LoadMinutesAndSec();
         Debug.Log(habits[habitIndex].HabitName);
         Debug.Log(habits[habitIndex].PetName);
+        
 
         //Set up colors 
         for (int i = 0; i < 7; i++)

@@ -5,28 +5,24 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerDownHandler
+public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDragHandler
 {
 
     private Canvas canvas;
 
     private RectTransform rectTransform;
     [SerializeField] private GameObject imagePrefab;
-    private Image buttonIcon;
 
     private Image draggedImage;
     private RectTransform canvasRectTransform;
     private RectTransform imageRectTransform;
-    private bool isDragging;
     private CanvasGroup canvasGroup;
 
         void Start()
     {
-        buttonIcon = GetComponent<Image>();
         canvas = FindObjectOfType<Canvas>();
         canvasRectTransform = canvas.GetComponent<RectTransform>();
         rectTransform = GetComponent<RectTransform>();
-        
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -53,9 +49,11 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
 
         BoxCollider2D collider = imageObject.GetComponent<BoxCollider2D>();
         RectTransform imgRectTransform = imageObject.GetComponent<RectTransform>();
-        collider.size = new Vector2(imgRectTransform.rect.width, imgRectTransform.rect.height);
+        if (collider != null) { collider.size = new Vector2(imgRectTransform.rect.width, imgRectTransform.rect.height); }
+        
     }
 
+    //change the size to be the same as another object
     public static void MatchOther(RectTransform rt, RectTransform other)
     {
         Vector2 myPrevPivot = rt.pivot;
@@ -81,21 +79,10 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
     public void OnEndDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = true;
-        isDragging = false;
 
         // Destroy the image when the drag ends
         Destroy(draggedImage.gameObject);
     }
 
     
-
-    void Update()
-    {
-
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        isDragging = true;
-    }
 }
