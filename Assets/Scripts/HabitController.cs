@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class ScheduleController : MonoBehaviour
+public class HabitController : MonoBehaviour
 {
     [SerializeField] private List<Habit> habits;
     [SerializeField] private Button[] dayBtns;
@@ -20,6 +20,9 @@ public class ScheduleController : MonoBehaviour
     [SerializeField] private TMP_InputField taskInput;
     [SerializeField] private GameObject tasksDisplayContent;
     [SerializeField] private GameObject textPrefab;
+    [SerializeField] private GameObject[] checkableTasksDisplayContent;
+    [SerializeField] private GameObject togglePrefab;
+    [SerializeField] private Slider progressBar;
     private List<string> temp = new List<string>();
     
     private float timer;
@@ -133,13 +136,63 @@ public class ScheduleController : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
-
-        List<string> tasks = habits[habitIndex].GetDay(dayIndex).tasks;
-        foreach(string task in tasks)
+        if (habits[habitIndex].GetDay(dayIndex).isActive)
         {
-            GameObject text = Instantiate(textPrefab, tasksDisplayContent.transform);
-            text.GetComponent<TMP_Text>().text = task;
+            List<string> tasks = habits[habitIndex].GetDay(dayIndex).tasks;
+            foreach (string task in tasks)
+            {
+                GameObject text = Instantiate(textPrefab, tasksDisplayContent.transform);
+                text.GetComponent<TMP_Text>().text = task;
+            }
         }
+
+    }
+
+    public void LoadCheckableTasks()
+    {
+        for(int i = 0; i < checkableTasksDisplayContent.Length; i++)
+        {
+            //Clear
+            foreach (Transform child in checkableTasksDisplayContent[i].transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+            //Add Tasks
+            List<string> tasks = habits[habitIndex].GetDay(i).tasks;
+            foreach (string task in tasks)
+            {
+
+                GameObject toggle = Instantiate(togglePrefab, checkableTasksDisplayContent[i].transform);
+                toggle.GetComponentInChildren<Text>().text = task;
+                toggle.GetComponent<Toggle>().isOn = false;
+                toggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate
+                {
+                    if (toggle.GetComponent<Toggle>().isOn)
+                    {
+                        IncreaseProgress(0.1f);
+                        Destroy(toggle);
+                    }
+                    
+                });
+                
+            }
+        }
+        
+        /*
+        foreach (Transform child in checkableTasksDisplayContent.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        if (habits[habitIndex].GetDay(dayIndex).isActive)
+        {
+            List<string> tasks = habits[habitIndex].GetDay(dayIndex).tasks;
+            foreach (string task in tasks)
+            {
+                GameObject toggle = Instantiate(togglePrefab, checkableTasksDisplayContent.transform);
+                toggle.GetComponentInChildren<Text>().text = task;
+            }
+        }
+        */
     }
 
 
@@ -181,7 +234,6 @@ public class ScheduleController : MonoBehaviour
         if (habits[habitIndex].GetDay(dayIndex).isActive)
         {
             LoadTasks();
-            Debug.Log("WAA");
             hours.value = 12 - habits[habitIndex].GetTime(dayIndex).hour;
             minutes.value = habits[habitIndex].GetTime(dayIndex).minute;
             ampm.value = habits[habitIndex].GetTime(dayIndex).ampm;
@@ -192,6 +244,7 @@ public class ScheduleController : MonoBehaviour
         }
         else
         {
+            ampm.value = 0;
             hours.value = 0;
         }
 
@@ -242,6 +295,18 @@ public class ScheduleController : MonoBehaviour
                 dayBtns[i].colors = cb;
             }
         }
+    }
+
+    public void IncreaseProgress(float amount)
+    {
+        habits[habitIndex].IncreaseProgress(amount);
+        UpdateProgressSlider();
+        Debug.Log(habits[habitIndex].Progress);
+    }
+
+    public void UpdateProgressSlider()
+    {
+        progressBar.value = habits[habitIndex].Progress;
     }
 
     public void SetDayIndex(int dayIndex)

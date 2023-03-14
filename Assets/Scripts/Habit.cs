@@ -38,11 +38,11 @@ public class Habit : MonoBehaviour
 {
     private string habitName;
     private Day[] activeDays;
-    public Pet pet;
+    private Pet pet;
     private int foodAmount;
     private int ballAmount;
     private int brushAmount;
-    
+    private float progress;
 
     public Habit(string habitName, string petName)
     {
@@ -52,9 +52,8 @@ public class Habit : MonoBehaviour
         foodAmount = 0;
         ballAmount = 0;
         brushAmount = 0;
-        
+        progress = 0;
         initDays();
-        
     }
 
     private void initDays()
@@ -172,10 +171,14 @@ public class Habit : MonoBehaviour
         set => brushAmount = value;
     }
 
-    
-
-    private void Update()
+    public float Progress
     {
-        
+        get => progress;
+        set => progress = value;
+    }
+
+    public void IncreaseProgress(float amount)
+    {
+        progress += amount;
     }
 }
