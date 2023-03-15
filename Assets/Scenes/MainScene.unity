@@ -16690,6 +16690,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d1b8a95a5f51a84795c1c7ff527fe75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  runJoy: 0
+  runBounce: 0
+  animator: {fileID: 1523628226}
   habitController: {fileID: 953584653}
   petName: {fileID: 342536146}
   petAge: {fileID: 384486665}

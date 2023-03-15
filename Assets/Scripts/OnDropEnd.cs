@@ -11,7 +11,10 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
     private float AMOUNT = 0.2f;
     private Vector3 previousPosition;
     private RectTransform rectTransform;
+    public bool runJoy = false;
+    public bool runBounce = false;
     bool setPetText;
+    public Animator animator;
 
     [SerializeField] private HabitController habitController;
     [SerializeField] private GameObject petName;
@@ -24,6 +27,8 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
         rectTransform = GetComponent<RectTransform>();
         collider.size = new Vector2(rectTransform.rect.width, rectTransform.rect.height);
         setPetText = false;
+        animator = GetComponent<Animator>();
+        //animator.runtimeAnimatorController = Resources.Load("Assets/Animations/PlaceholderPet.controller");
     }
     public void OnDrop(PointerEventData eventData)
     {
@@ -32,9 +37,11 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
             Pet currPet = habitController.getCurrHabit().Pet;
 
             if (eventData.pointerDrag.name.Equals("FoodBtn")){
+                animator.SetBool("runJoy", true);
                 currPet.increaseHunger(AMOUNT);
             }else if (eventData.pointerDrag.name.Equals("BallBtn"))
             {
+                animator.SetBool("runBounce", true);
                 currPet.increaseFun(AMOUNT);
             }
 
