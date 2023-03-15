@@ -29,7 +29,7 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
         canvasRectTransform = canvas.GetComponent<RectTransform>();
         rectTransform = GetComponent<RectTransform>();
         petObject = GameObject.Find("PlaceholderPet");
-        //animator = GetComponent<Animator>();
+        animator = petObject.GetComponent<Animator>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -91,12 +91,12 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
             Pet currPet = habitController.getCurrHabit().Pet;
             if (draggedImageObject.name.StartsWith("Food"))
             {
-                //animator.SetBool("runJoy", true);
+                animator.SetBool("runJoy", true);
                 currPet.increaseHunger(AMOUNT);
             }
             else if (draggedImageObject.name.StartsWith("Ball"))
             {
-                //animator.SetBool("runBounce", true);
+                animator.SetBool("runBounce", true);
                 currPet.increaseFun(AMOUNT);
             }
         }
