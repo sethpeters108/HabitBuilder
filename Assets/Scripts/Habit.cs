@@ -153,6 +153,11 @@ public class Habit : MonoBehaviour
         }
     }
 
+    public Pet Pet
+    {
+        get => pet;
+    }
+
     public int FoodAmount
     {
         get => foodAmount;

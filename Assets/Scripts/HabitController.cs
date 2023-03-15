@@ -24,12 +24,13 @@ public class HabitController : MonoBehaviour
     [SerializeField] private GameObject togglePrefab;
     [SerializeField] private Slider progressBar;
     private List<string> temp = new List<string>();
+    
+
     // Start is called before the first frame update
     void Start()
     {
         habits = new List<Habit>();
         habits.Add(new Habit("TestHabit", "jon"));
-
     }
 
     // Update is called once per frame
@@ -39,6 +40,7 @@ public class HabitController : MonoBehaviour
         selectedIndicator.transform.position = dayBtns[dayIndex].transform.position;
         //Debug.Log(selectedIndicator.transform.position);
     }
+
 
     private void LoadMinutesAndSec()
     {
@@ -174,10 +176,11 @@ public class HabitController : MonoBehaviour
     public void LoadHabitSchedule()
     {
         //TestCode
-        habitIndex = 0;
+        SetHabitIndex(0);
         LoadMinutesAndSec();
         Debug.Log(habits[habitIndex].HabitName);
         Debug.Log(habits[habitIndex].PetName);
+        
 
         //Set up colors 
         for (int i = 0; i < 7; i++)
@@ -293,5 +296,19 @@ public class HabitController : MonoBehaviour
     {
         this.habitIndex = habitIndex;
     }
+    
+    public int getHabitIndex()
+    {
+        return habitIndex;
+    }
+    public List<Habit> Habits
+    {
+        get { return habits; }
+        set { habits = value; }
+    }
 
+    public Habit getCurrHabit()
+    {
+        return Habits[habitIndex];
+    }
 }
