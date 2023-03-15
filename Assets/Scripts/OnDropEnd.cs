@@ -27,8 +27,8 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
         rectTransform = GetComponent<RectTransform>();
         collider.size = new Vector2(rectTransform.rect.width, rectTransform.rect.height);
         setPetText = false;
-        animator = GetComponent<Animator>();
-        //animator.runtimeAnimatorController = Resources.Load("Assets/Animations/PlaceholderPet.controller");
+        animator = GameObject.Find("PlaceholderPet").GetComponent<Animator>();
+
     }
     public void OnDrop(PointerEventData eventData)
     {
@@ -37,11 +37,11 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
             Pet currPet = habitController.getCurrHabit().Pet;
 
             if (eventData.pointerDrag.name.Equals("FoodBtn")){
-                animator.SetBool("runJoy", true);
+               // animator.SetBool("runJoy", true);
                 currPet.increaseHunger(AMOUNT);
             }else if (eventData.pointerDrag.name.Equals("BallBtn"))
             {
-                animator.SetBool("runBounce", true);
+               // animator.SetBool("runBounce", true);
                 currPet.increaseFun(AMOUNT);
             }
 
@@ -68,6 +68,7 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
             
             // Calculate the distance moved since the last frame
             float distanceMoved = Vector3.Distance(collision.transform.position, previousPosition);
+            animator.SetBool("runBrush", true);
             currPet.increaseHealth(distanceMoved * 0.0001f);
             // Store the current position for the next frame
             previousPosition = collision.transform.position;
