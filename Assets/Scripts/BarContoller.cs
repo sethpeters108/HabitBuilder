@@ -34,10 +34,7 @@ public class BarContoller : MonoBehaviour
     // TODO: Test Code Remove Later
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SetHealth(0.5f);
-        }
+
     }
 
 }
