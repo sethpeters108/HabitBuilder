@@ -29437,7 +29437,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7675346402701144711, guid: c6c5e6236a9fd5d4aac235d7c4e75a85, type: 3}
       propertyPath: m_Text
-      value: asfwf
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7675346402701144711, guid: c6c5e6236a9fd5d4aac235d7c4e75a85, type: 3}
       propertyPath: m_FontData.m_MinSize
