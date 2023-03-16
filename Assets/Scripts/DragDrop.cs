@@ -12,30 +12,37 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
 
     private RectTransform rectTransform;
     [SerializeField] private GameObject imagePrefab;
+    [SerializeField] private HabitController habitController;
 
     private Image draggedImage;
+    private GameObject draggedImageObject;
     private RectTransform canvasRectTransform;
     private RectTransform imageRectTransform;
     private CanvasGroup canvasGroup;
+    private GameObject petObject;
+    private float AMOUNT = 0.2f;
+    public Animator animator;
 
-        void Start()
+    void Start()
     {
         canvas = FindObjectOfType<Canvas>();
         canvasRectTransform = canvas.GetComponent<RectTransform>();
         rectTransform = GetComponent<RectTransform>();
+        petObject = GameObject.Find("PlaceholderPet");
+        animator = petObject.GetComponent<Animator>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
 
         // Create a new instance of the image prefab
-        GameObject imageObject = Instantiate(imagePrefab, canvas.transform);
+        draggedImageObject = Instantiate(imagePrefab, canvas.transform);
 
         // Get the image component from the instantiated object
-        draggedImage = imageObject.GetComponent<Image>();
+        draggedImage = draggedImageObject.GetComponent<Image>();
 
         // Get the RectTransform component of the image
-        imageRectTransform = imageObject.GetComponent<RectTransform>();
+        imageRectTransform = draggedImageObject.GetComponent<RectTransform>();
 
         // Set the position of the image to match the cursor position
         Vector2 localPoint;
@@ -44,11 +51,11 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
 
         MatchOther(imageRectTransform, rectTransform);
 
-        canvasGroup = imageObject.GetComponent<CanvasGroup>();
+        canvasGroup = draggedImageObject.GetComponent<CanvasGroup>();
         canvasGroup.blocksRaycasts = false;
 
-        BoxCollider2D collider = imageObject.GetComponent<BoxCollider2D>();
-        RectTransform imgRectTransform = imageObject.GetComponent<RectTransform>();
+        BoxCollider2D collider = draggedImageObject.GetComponent<BoxCollider2D>();
+        RectTransform imgRectTransform = draggedImageObject.GetComponent<RectTransform>();
         if (collider != null) { collider.size = new Vector2(imgRectTransform.rect.width, imgRectTransform.rect.height); }
         
     }
@@ -79,10 +86,57 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
     public void OnEndDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = true;
-
+        if (inside(draggedImageObject, petObject))
+        {
+            Pet currPet = habitController.getCurrHabit().Pet;
+            if (draggedImageObject.name.StartsWith("Food"))
+            {
+                if(currPet.Hunger >= 1.0)
+                {
+                    animator.SetBool("full", true);
+                }
+                else
+                {
+                    animator.SetBool("runJoy", true);
+                }
+                
+                currPet.increaseHunger(AMOUNT);
+            }
+            else if (draggedImageObject.name.StartsWith("Ball"))
+            {
+                if(currPet.Fun>=1.0)
+                {
+                    animator.SetBool("entertained", true);
+                }
+                else
+                {
+                    animator.SetBool("runBounce", true);
+                }
+                
+                currPet.increaseFun(AMOUNT);
+            }
+        }
         // Destroy the image when the drag ends
         Destroy(draggedImage.gameObject);
     }
 
-    
+    private bool inside(GameObject gameObjectA, GameObject gameObjectB)
+    {
+        // Get the colliders of the game objects
+        BoxCollider2D colliderA = gameObjectA.GetComponent<BoxCollider2D>();
+        BoxCollider2D colliderB = gameObjectB.GetComponent<BoxCollider2D>();
+
+        // Get a point on colliderA that is closest to colliderB
+        Vector3 closestPoint = colliderA.ClosestPoint(colliderB.bounds.center);
+
+        // Check if the closest point is inside colliderB
+        if (colliderB.bounds.Contains(closestPoint))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

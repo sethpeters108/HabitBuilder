@@ -4828,6 +4828,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imagePrefab: {fileID: 6665885853006517389, guid: 647e3e58501ec31469a284ce50eddebe, type: 3}
+  habitController: {fileID: 953584653}
+  animator: {fileID: 0}
 --- !u!1 &332516776
 GameObject:
   m_ObjectHideFlags: 0
@@ -8233,6 +8235,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imagePrefab: {fileID: 8455681033814603440, guid: 294d44675079a0541a0cb539aaea0ed1, type: 3}
+  habitController: {fileID: 953584653}
+  animator: {fileID: 0}
 --- !u!1 &692314763
 GameObject:
   m_ObjectHideFlags: 0
@@ -12678,6 +12682,7 @@ GameObject:
   - component: {fileID: 1201008139}
   - component: {fileID: 1201008142}
   - component: {fileID: 1201008143}
+  - component: {fileID: 1201008144}
   m_Layer: 5
   m_Name: FoodBtn
   m_TagString: Untagged
@@ -12816,6 +12821,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imagePrefab: {fileID: 6909129724423533370, guid: 4b51c53b2b259f74c8fbc55be311273f, type: 3}
+  habitController: {fileID: 953584653}
+  animator: {fileID: 0}
+--- !u!225 &1201008144
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201008137}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1207700638
 GameObject:
   m_ObjectHideFlags: 0
@@ -16634,13 +16653,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1638544002, guid: 5718fe76069e8174a9a2192ed83892d8, type: 3}
+  m_Sprite: {fileID: -931551271, guid: 14d25daaeee596548b9c05ba3fe33d8d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16690,6 +16709,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d1b8a95a5f51a84795c1c7ff527fe75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  runJoy: 0
+  runBounce: 0
+  animator: {fileID: 1523628226}
   habitController: {fileID: 953584653}
   petName: {fileID: 342536146}
   petAge: {fileID: 384486665}
@@ -16709,10 +16731,10 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 0.64, y: 0.64}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
