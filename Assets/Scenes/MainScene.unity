@@ -3769,7 +3769,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 141b0b8bb88412949901d0c52c2ec892, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6140,7 +6140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 59e13db5e57ef484c85f7ff64ea6b4f2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14698,7 +14698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -884.99994, y: -75}
+  m_AnchoredPosition: {x: -885, y: -75}
   m_SizeDelta: {x: -1820, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &878874506
@@ -15154,6 +15154,7 @@ MonoBehaviour:
   currPetListItem: {fileID: 1161793388}
   petName: {fileID: 342536146}
   petAge: {fileID: 384486665}
+  petSprite: {fileID: 21300000, guid: b349aa97d39255944874deed25c0f81a, type: 3}
 --- !u!4 &953584654
 Transform:
   m_ObjectHideFlags: 0
@@ -18510,7 +18511,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: b349aa97d39255944874deed25c0f81a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -20463,7 +20464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1473610507
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21159,7 +21160,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.62857145, y: 1}
+  m_AnchorMax: {x: 0.48761904, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -22295,7 +22296,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: b349aa97d39255944874deed25c0f81a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -23253,7 +23254,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.0000057674097, y: 0}
-  m_SizeDelta: {x: 195, y: 300}
+  m_SizeDelta: {x: 269, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1639113944
 MonoBehaviour:
@@ -23848,7 +23849,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1506109874}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.62857145
+  m_Size: 0.48761904
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -25122,7 +25123,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ddb79755e7ff5a34c98307387817a061, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -29418,6 +29419,10 @@ PrefabInstance:
       propertyPath: m_margin.z
       value: -122.5827
       objectReference: {fileID: 0}
+    - target: {fileID: 8097750213591088814, guid: 47c0f27349644944cac5bf9150e23a91, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b349aa97d39255944874deed25c0f81a, type: 3}
     - target: {fileID: 8950267427871866011, guid: 47c0f27349644944cac5bf9150e23a91, type: 3}
       propertyPath: m_Name
       value: PetListItem

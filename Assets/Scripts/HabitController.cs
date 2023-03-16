@@ -34,6 +34,7 @@ public class HabitController : MonoBehaviour
     [SerializeField] private PetListItem currPetListItem;
     [SerializeField] private GameObject petName;
     [SerializeField] private GameObject petAge;
+    [SerializeField] private Sprite petSprite;
     private List<string> temp = new List<string>();
     
 
@@ -338,6 +339,7 @@ public class HabitController : MonoBehaviour
         petListItemObject.setHabitName(habitName);
         petListItemObject.setHabitIndex(prevHabitIndex + 1);
         currPetListItem = petListItemObject;
+        petListItemObject.transform.Find("PetPlaceholder").GetComponent<Image>().sprite = petSprite;
 
         //Set Onclick for the text button
         //petListItemObject.transform.Find("HabitText").GetComponent<Button>().onClick.AddListener(delegate { SetHabitIndex(currPetListItem.getHabitIndex()); });
