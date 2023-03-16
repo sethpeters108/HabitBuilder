@@ -32,6 +32,8 @@ public class HabitController : MonoBehaviour
     [SerializeField] private Slider progressBar;
     [SerializeField] private GameObject pageController;
     [SerializeField] private PetListItem currPetListItem;
+    [SerializeField] private GameObject petName;
+    [SerializeField] private GameObject petAge;
     private List<string> temp = new List<string>();
     
 
@@ -306,6 +308,8 @@ public class HabitController : MonoBehaviour
     public void SetHabitIndex(int habitIndex)
     {
         currPetListItem.GetComponent<PetListItem>().setHabitIndex(habitIndex);
+        petName.GetComponent<TextMeshProUGUI>().text = "Name : " + getCurrHabit().Pet.PetName;
+        petAge.GetComponent<TextMeshProUGUI>().text = "Age : " + getCurrHabit().Pet.Age;
     }
     
     public int getHabitIndex()
