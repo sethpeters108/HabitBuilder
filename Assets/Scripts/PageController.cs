@@ -22,7 +22,7 @@ public class PageController : MonoBehaviour
         
         for(int i = 0; i < pages.Length; i++)
         {
-            Debug.Log(pages[i].name);
+            //Debug.Log(pages[i].name);
             if (!pages[i].name.Equals(pageName))
             {
                 pages[i].SetActive(false);
