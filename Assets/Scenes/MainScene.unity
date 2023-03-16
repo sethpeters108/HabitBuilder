@@ -4830,7 +4830,9 @@ MonoBehaviour:
   imagePrefab: {fileID: 6665885853006517389, guid: 647e3e58501ec31469a284ce50eddebe, type: 3}
   habitController: {fileID: 953584653}
   ps: {fileID: 0}
-  psSprite: {fileID: 0}
+  psSpritePositive: {fileID: 21300000, guid: 7fd30b852d2429f46b70d19ba31c0c80, type: 3}
+  psSpriteNegative: {fileID: 21300000, guid: fc783e843c9e6a941ba251c2cc8eec94, type: 3}
+  isAnimationOn: 0
   animator: {fileID: 0}
 --- !u!1 &332516776
 GameObject:
@@ -8238,8 +8240,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagePrefab: {fileID: 8455681033814603440, guid: 294d44675079a0541a0cb539aaea0ed1, type: 3}
   habitController: {fileID: 953584653}
-  ps: {fileID: 845886797}
-  psSprite: {fileID: 21300000, guid: 4446dbb153ea1f34a9b9b49f346249a1, type: 3}
+  ps: {fileID: 0}
+  psSpritePositive: {fileID: 21300000, guid: 4446dbb153ea1f34a9b9b49f346249a1, type: 3}
+  psSpriteNegative: {fileID: 21300000, guid: fc783e843c9e6a941ba251c2cc8eec94, type: 3}
+  isAnimationOn: 1
   animator: {fileID: 0}
 --- !u!1 &692314763
 GameObject:
@@ -17643,8 +17647,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagePrefab: {fileID: 6909129724423533370, guid: 4b51c53b2b259f74c8fbc55be311273f, type: 3}
   habitController: {fileID: 953584653}
-  ps: {fileID: 845886797}
-  psSprite: {fileID: 21300000, guid: 971f179d80ffa4d46b0709ee5491edda, type: 3}
+  ps: {fileID: 0}
+  psSpritePositive: {fileID: 21300000, guid: 971f179d80ffa4d46b0709ee5491edda, type: 3}
+  psSpriteNegative: {fileID: 21300000, guid: fc783e843c9e6a941ba251c2cc8eec94, type: 3}
+  isAnimationOn: 1
   animator: {fileID: 0}
 --- !u!225 &1201008144
 CanvasGroup:
@@ -21539,8 +21545,10 @@ MonoBehaviour:
   habitController: {fileID: 953584653}
   petName: {fileID: 342536146}
   petAge: {fileID: 384486665}
-  ps: {fileID: 845886797}
-  psSprite: {fileID: 21300000, guid: 7fd30b852d2429f46b70d19ba31c0c80, type: 3}
+  ps: {fileID: 0}
+  psSpritePositive: {fileID: 21300000, guid: 7fd30b852d2429f46b70d19ba31c0c80, type: 3}
+  psSpriteNegative: {fileID: 21300000, guid: 983794b9bcab85445acdc1877f3fff2b, type: 3}
+  isAnimationOn: 1
 --- !u!50 &1523628228
 Rigidbody2D:
   serializedVersion: 4
