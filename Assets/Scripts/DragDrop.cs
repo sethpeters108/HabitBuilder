@@ -97,6 +97,15 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
                 ps.textureSheetAnimation.SetSprite(0, psSprite);
                 ps.Play();
                 animator.SetBool("runJoy", true);
+                if(currPet.Hunger >= 1.0)
+                {
+                    animator.SetBool("full", true);
+                }
+                else
+                {
+                    animator.SetBool("runJoy", true);
+                }
+                
                 currPet.increaseHunger(AMOUNT);
             }
             else if (draggedImageObject.name.StartsWith("Ball"))
@@ -104,6 +113,15 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
                 ps.textureSheetAnimation.SetSprite(0, psSprite);
                 ps.Play();
                 animator.SetBool("runBounce", true);
+                if(currPet.Fun>=0)
+                {
+                    animator.SetBool("entertained", true);
+                }
+                else
+                {
+                    animator.SetBool("runBounce", true);
+                }
+                
                 currPet.increaseFun(AMOUNT);
             }
             
