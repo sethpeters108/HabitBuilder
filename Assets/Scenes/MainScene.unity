@@ -4829,6 +4829,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagePrefab: {fileID: 6665885853006517389, guid: 647e3e58501ec31469a284ce50eddebe, type: 3}
   habitController: {fileID: 953584653}
+  animator: {fileID: 0}
 --- !u!1 &332516776
 GameObject:
   m_ObjectHideFlags: 0
@@ -8235,6 +8236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagePrefab: {fileID: 8455681033814603440, guid: 294d44675079a0541a0cb539aaea0ed1, type: 3}
   habitController: {fileID: 953584653}
+  animator: {fileID: 0}
 --- !u!1 &692314763
 GameObject:
   m_ObjectHideFlags: 0
@@ -12820,6 +12822,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagePrefab: {fileID: 6909129724423533370, guid: 4b51c53b2b259f74c8fbc55be311273f, type: 3}
   habitController: {fileID: 953584653}
+  animator: {fileID: 0}
 --- !u!225 &1201008144
 CanvasGroup:
   m_ObjectHideFlags: 0

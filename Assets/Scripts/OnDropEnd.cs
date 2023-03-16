@@ -68,7 +68,15 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
             
             // Calculate the distance moved since the last frame
             float distanceMoved = Vector3.Distance(collision.transform.position, previousPosition);
-            animator.SetBool("runBrush", true);
+            if(currPet.Health >= 1.0)
+            {
+                animator.SetBool("healthy", true);
+            }
+            else
+            {
+                animator.SetBool("runBrush", true);
+            }
+            
             currPet.increaseHealth(distanceMoved * 0.0001f);
             // Store the current position for the next frame
             previousPosition = collision.transform.position;

@@ -91,12 +91,28 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
             Pet currPet = habitController.getCurrHabit().Pet;
             if (draggedImageObject.name.StartsWith("Food"))
             {
-                animator.SetBool("runJoy", true);
+                if(currPet.Hunger >= 1.0)
+                {
+                    animator.SetBool("full", true);
+                }
+                else
+                {
+                    animator.SetBool("runJoy", true);
+                }
+                
                 currPet.increaseHunger(AMOUNT);
             }
             else if (draggedImageObject.name.StartsWith("Ball"))
             {
-                animator.SetBool("runBounce", true);
+                if(currPet.Fun>=0)
+                {
+                    animator.SetBool("entertained", true);
+                }
+                else
+                {
+                    animator.SetBool("runBounce", true);
+                }
+                
                 currPet.increaseFun(AMOUNT);
             }
         }
