@@ -13,6 +13,8 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
     private RectTransform rectTransform;
     [SerializeField] private GameObject imagePrefab;
     [SerializeField] private HabitController habitController;
+    [SerializeField] private ParticleSystem ps;
+    [SerializeField] private Sprite psSprite;
 
     private Image draggedImage;
     private GameObject draggedImageObject;
@@ -85,20 +87,27 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        canvasGroup.blocksRaycasts = true;
+        Debug.Log(eventData.position);
+        canvasGroup.blocksRaycasts = false;
         if (inside(draggedImageObject, petObject))
         {
             Pet currPet = habitController.getCurrHabit().Pet;
             if (draggedImageObject.name.StartsWith("Food"))
             {
+                ps.textureSheetAnimation.SetSprite(0, psSprite);
+                ps.Play();
                 animator.SetBool("runJoy", true);
                 currPet.increaseHunger(AMOUNT);
             }
             else if (draggedImageObject.name.StartsWith("Ball"))
             {
+                ps.textureSheetAnimation.SetSprite(0, psSprite);
+                ps.Play();
                 animator.SetBool("runBounce", true);
                 currPet.increaseFun(AMOUNT);
             }
+            
+            
         }
         // Destroy the image when the drag ends
         Destroy(draggedImage.gameObject);
@@ -108,10 +117,13 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
     {
         // Get the colliders of the game objects
         BoxCollider2D colliderA = gameObjectA.GetComponent<BoxCollider2D>();
+        Debug.Log(colliderA.bounds);
         BoxCollider2D colliderB = gameObjectB.GetComponent<BoxCollider2D>();
-
+        Debug.Log(colliderB.IsTouching(colliderA));
+        return colliderB.IsTouching(colliderA);
+        /*
         // Get a point on colliderA that is closest to colliderB
-        Vector3 closestPoint = colliderA.ClosestPoint(colliderB.bounds.center);
+        //Vector3 closestPoint = colliderA.ClosestPoint(colliderB.bounds.center);
 
         // Check if the closest point is inside colliderB
         if (colliderB.bounds.Contains(closestPoint))
@@ -122,5 +134,6 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
         {
             return false;
         }
+        */
     }
 }

@@ -19,6 +19,8 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
     [SerializeField] private HabitController habitController;
     [SerializeField] private GameObject petName;
     [SerializeField] private GameObject petAge;
+    [SerializeField] private ParticleSystem ps;
+    [SerializeField] private Sprite psSprite;
 
     private void Start()
     {
@@ -32,12 +34,14 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
     }
     public void OnDrop(PointerEventData eventData)
     {
+        Debug.Log(eventData.position);
         if (eventData.pointerDrag != null)
         {
             Pet currPet = habitController.getCurrHabit().Pet;
 
             if (eventData.pointerDrag.name.Equals("FoodBtn")){
-               // animator.SetBool("runJoy", true);
+                // animator.SetBool("runJoy", true);
+                ps.Play();
                 currPet.increaseHunger(AMOUNT);
             }else if (eventData.pointerDrag.name.Equals("BallBtn"))
             {
@@ -63,7 +67,10 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
         // Check if the object is inside a specific collider
         if (collision.gameObject.name.StartsWith("Brush"))
         {
+            ps.loop = true;
             
+            ps.textureSheetAnimation.SetSprite(0, psSprite);
+            ps.Play();
             Pet currPet = habitController.getCurrHabit().Pet;
             
             // Calculate the distance moved since the last frame
@@ -73,6 +80,7 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
             // Store the current position for the next frame
             previousPosition = collision.transform.position;
         }
+        ps.loop = false;
     }
 
     private void Update()
