@@ -13,6 +13,10 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
     private RectTransform rectTransform;
     [SerializeField] private GameObject imagePrefab;
     [SerializeField] private HabitController habitController;
+    [SerializeField] private ParticleSystem ps;
+    [SerializeField] private Sprite psSpritePositive;
+    [SerializeField] private Sprite psSpriteNegative;
+    [SerializeField] private bool isAnimationOn;
 
     private Image draggedImage;
     private GameObject draggedImageObject;
@@ -26,6 +30,7 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
     void Start()
     {
         canvas = FindObjectOfType<Canvas>();
+        ps = FindObjectOfType<ParticleSystem>();
         canvasRectTransform = canvas.GetComponent<RectTransform>();
         rectTransform = GetComponent<RectTransform>();
         petObject = GameObject.Find("PlaceholderPet");
@@ -85,36 +90,78 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        canvasGroup.blocksRaycasts = true;
+        
+        canvasGroup.blocksRaycasts = false;
         if (inside(draggedImageObject, petObject))
         {
             Pet currPet = habitController.getCurrHabit().Pet;
             if (draggedImageObject.name.StartsWith("Food"))
             {
+                
                 if(currPet.Hunger >= 1.0)
                 {
-                    animator.SetBool("full", true);
+                    if(ps != null)
+                    {
+                        ps.textureSheetAnimation.SetSprite(0, psSpriteNegative);
+                        ps.Play();
+                    }
+
+                    if (isAnimationOn)
+                    {
+                        animator.SetBool("full", true);
+                    }
+                    
                 }
                 else
                 {
-                    animator.SetBool("runJoy", true);
+                    if (ps != null)
+                    {
+                        ps.textureSheetAnimation.SetSprite(0, psSpritePositive);
+                        ps.Play();
+                    }
+                    if (isAnimationOn)
+                    {
+                        animator.SetBool("runJoy", true);
+                    }
+                    
                 }
                 
                 currPet.increaseHunger(AMOUNT);
             }
             else if (draggedImageObject.name.StartsWith("Ball"))
             {
+                
                 if(currPet.Fun>=1.0)
                 {
-                    animator.SetBool("entertained", true);
+                    if (ps != null)
+                    {
+                        ps.textureSheetAnimation.SetSprite(0, psSpriteNegative);
+                        ps.Play();
+                    }
+                    if (isAnimationOn)
+                    {
+                        animator.SetBool("entertained", true);
+                    }
+                    
                 }
                 else
                 {
-                    animator.SetBool("runBounce", true);
+                    if (ps != null)
+                    {
+                        ps.textureSheetAnimation.SetSprite(0, psSpritePositive);
+                        ps.Play();
+                    }
+                    if (isAnimationOn)
+                    {
+                        animator.SetBool("runBounce", true);
+                    }
+                    
                 }
                 
                 currPet.increaseFun(AMOUNT);
             }
+            
+            
         }
         // Destroy the image when the drag ends
         Destroy(draggedImage.gameObject);
@@ -124,10 +171,13 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
     {
         // Get the colliders of the game objects
         BoxCollider2D colliderA = gameObjectA.GetComponent<BoxCollider2D>();
+        
         BoxCollider2D colliderB = gameObjectB.GetComponent<BoxCollider2D>();
-
+       
+        return colliderB.IsTouching(colliderA);
+        /*
         // Get a point on colliderA that is closest to colliderB
-        Vector3 closestPoint = colliderA.ClosestPoint(colliderB.bounds.center);
+        //Vector3 closestPoint = colliderA.ClosestPoint(colliderB.bounds.center);
 
         // Check if the closest point is inside colliderB
         if (colliderB.bounds.Contains(closestPoint))
@@ -138,5 +188,6 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
         {
             return false;
         }
+        */
     }
 }

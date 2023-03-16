@@ -19,9 +19,19 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
     [SerializeField] private HabitController habitController;
     [SerializeField] private GameObject petName;
     [SerializeField] private GameObject petAge;
+    [SerializeField] private ParticleSystem ps;
+    [SerializeField] private Sprite psSpritePositive;
+    [SerializeField] private Sprite psSpriteNegative;
+    public bool isAnimationOn;
+
 
     private void Start()
     {
+        Debug.Log(isAnimationOn);
+        ps = FindObjectOfType<ParticleSystem>();
+
+        ps.textureSheetAnimation.SetSprite(0, null);
+        ps.Play();
         previousPosition = new Vector3(0,0,0);
         BoxCollider2D collider = GetComponent<BoxCollider2D>();
         rectTransform = GetComponent<RectTransform>();
@@ -32,12 +42,14 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
     }
     public void OnDrop(PointerEventData eventData)
     {
+        Debug.Log(eventData.position);
         if (eventData.pointerDrag != null)
         {
             Pet currPet = habitController.getCurrHabit().Pet;
 
             if (eventData.pointerDrag.name.Equals("FoodBtn")){
-               // animator.SetBool("runJoy", true);
+                // animator.SetBool("runJoy", true);
+                ps.Play();
                 currPet.increaseHunger(AMOUNT);
             }else if (eventData.pointerDrag.name.Equals("BallBtn"))
             {
@@ -64,23 +76,54 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
         if (collision.gameObject.name.StartsWith("Brush"))
         {
             
+            
+           
             Pet currPet = habitController.getCurrHabit().Pet;
             
             // Calculate the distance moved since the last frame
             float distanceMoved = Vector3.Distance(collision.transform.position, previousPosition);
             if(currPet.Health >= 1.0)
             {
-                animator.SetBool("healthy", true);
+                
+                if (ps != null)
+                {
+                    
+                    ps.loop = true;
+                    ps.textureSheetAnimation.SetSprite(0, psSpriteNegative);
+                    ps.Play();
+                }
+                if (isAnimationOn)
+                {
+                    animator.SetBool("healthy", true);
+                }
+                
             }
             else
             {
-                animator.SetBool("runBrush", true);
+                
+                if (ps != null)
+                {
+                    Debug.Log("Play");
+                    
+                    ps.textureSheetAnimation.SetSprite(0, psSpritePositive);
+                    ps.Play();
+                }
+                if (isAnimationOn)
+                {
+                    animator.SetBool("runBrush", true);
+                }
+                
             }
             
-            currPet.increaseHealth(distanceMoved * 0.0001f);
+            currPet.increaseHealth(distanceMoved * 0.01f);
             // Store the current position for the next frame
             previousPosition = collision.transform.position;
         }
+        if(ps != null)
+        {
+            ps.loop = false;
+        }
+       
     }
 
     private void Update()
