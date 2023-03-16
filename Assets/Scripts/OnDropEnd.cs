@@ -13,12 +13,9 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
     private RectTransform rectTransform;
     public bool runJoy = false;
     public bool runBounce = false;
-    bool setPetText;
     public Animator animator;
 
     [SerializeField] private HabitController habitController;
-    [SerializeField] private GameObject petName;
-    [SerializeField] private GameObject petAge;
     [SerializeField] private ParticleSystem ps;
     [SerializeField] private Sprite psSpritePositive;
     [SerializeField] private Sprite psSpriteNegative;
@@ -36,7 +33,6 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
         BoxCollider2D collider = GetComponent<BoxCollider2D>();
         rectTransform = GetComponent<RectTransform>();
         collider.size = new Vector2(rectTransform.rect.width, rectTransform.rect.height);
-        setPetText = false;
         animator = GameObject.Find("PlaceholderPet").GetComponent<Animator>();
 
     }
@@ -134,12 +130,6 @@ public class OnDropEnd : MonoBehaviour, IDropHandler
             currPet.decreaseFun(AMOUNT);
             currPet.decreaseHealth(AMOUNT);
             currPet.decreaseHunger(AMOUNT);
-        }
-        if (!setPetText)
-        {
-            petName.GetComponent<TextMeshProUGUI>().text = "Name : " + habitController.getCurrHabit().Pet.PetName;
-            petAge.GetComponent<TextMeshProUGUI>().text = "Age : " + habitController.getCurrHabit().Pet.Age;
-            setPetText = true;
         }
     }
 

@@ -23,6 +23,8 @@ public class HabitController : MonoBehaviour
     [SerializeField] private GameObject[] checkableTasksDisplayContent;
     [SerializeField] private GameObject togglePrefab;
     [SerializeField] private Slider progressBar;
+    [SerializeField] private GameObject petName;
+    [SerializeField] private GameObject petAge;
     private List<string> temp = new List<string>();
     
 
@@ -295,6 +297,8 @@ public class HabitController : MonoBehaviour
     public void SetHabitIndex(int habitIndex)
     {
         this.habitIndex = habitIndex;
+        petName.GetComponent<TextMeshProUGUI>().text = "Name : " + getCurrHabit().Pet.PetName;
+        petAge.GetComponent<TextMeshProUGUI>().text = "Age : " + getCurrHabit().Pet.Age;
     }
     
     public int getHabitIndex()
