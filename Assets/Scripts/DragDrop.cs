@@ -104,7 +104,7 @@ public class DragDrop : MonoBehaviour,  IBeginDragHandler, IEndDragHandler, IDra
             }
             else if (draggedImageObject.name.StartsWith("Ball"))
             {
-                if(currPet.Fun>=0)
+                if(currPet.Fun>=1.0)
                 {
                     animator.SetBool("entertained", true);
                 }
