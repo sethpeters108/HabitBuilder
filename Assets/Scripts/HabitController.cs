@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using System;
 
 public class HabitController : MonoBehaviour
 {
@@ -20,17 +21,27 @@ public class HabitController : MonoBehaviour
     [SerializeField] private TMP_InputField taskInput;
     [SerializeField] private GameObject tasksDisplayContent;
     [SerializeField] private GameObject textPrefab;
+    [SerializeField] private TMP_InputField habitNameInput;
+    [SerializeField] private TMP_InputField petNameInput;
+    [SerializeField] private GameObject petListItemPrefab;
+    [SerializeField] private GameObject petListItemAdd;
+    [SerializeField] private GameObject petListScrollArea;
+    [SerializeField] private GameObject contentObject;
     [SerializeField] private GameObject[] checkableTasksDisplayContent;
     [SerializeField] private GameObject togglePrefab;
     [SerializeField] private Slider progressBar;
+    [SerializeField] private GameObject pageController;
+    [SerializeField] private PetListItem currPetListItem;
     [SerializeField] private GameObject petName;
     [SerializeField] private GameObject petAge;
+    [SerializeField] private Sprite petSprite;
     private List<string> temp = new List<string>();
     
 
     // Start is called before the first frame update
     void Start()
     {
+        habitIndex = 0;
         habits = new List<Habit>();
         habits.Add(new Habit("TestHabit", "jon"));
     }
@@ -62,27 +73,27 @@ public class HabitController : MonoBehaviour
 
     public void HandleInputHour(int val)
     {
-        habits[habitIndex].SetNotificationTimeHour(dayIndex,int.Parse(hours.options[val].text));
+        habits[getHabitIndex()].SetNotificationTimeHour(dayIndex,int.Parse(hours.options[val].text));
     }
 
     public void HandleInputMinute(int val)
     {
-        habits[habitIndex].SetNotificationTimeMinute(dayIndex, int.Parse(minutes.options[val].text));
+        habits[getHabitIndex()].SetNotificationTimeMinute(dayIndex, int.Parse(minutes.options[val].text));
     }
 
     public void HandleInputAmPm(int val)
     {
-        habits[habitIndex].SetNotificationTimeAmPm(dayIndex, val);
+        habits[getHabitIndex()].SetNotificationTimeAmPm(dayIndex, val);
     }
 
     public void HandleInputBeforeOffset(int val)
     {
-        habits[habitIndex].SetBeforeOffset(dayIndex, val);
+        habits[getHabitIndex()].SetBeforeOffset(dayIndex, val);
     }
 
     public void HandleInputAfterOffset(int val)
     {
-        habits[habitIndex].SetAfterOffset(dayIndex, val);
+        habits[getHabitIndex()].SetAfterOffset(dayIndex, val);
     }
 
     public void ReadNewTask()
@@ -90,9 +101,9 @@ public class HabitController : MonoBehaviour
         if(!taskInput.text.Equals("Add Tasks..."))
         {
             
-            if (habits[habitIndex].GetDay(dayIndex).isActive)
+            if (habits[getHabitIndex()].GetDay(dayIndex).isActive)
             {
-                habits[habitIndex].GetDay(dayIndex).tasks.Add(taskInput.text);
+                habits[getHabitIndex()].GetDay(dayIndex).tasks.Add(taskInput.text);
             }
             else
             {
@@ -115,9 +126,9 @@ public class HabitController : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
-        if (habits[habitIndex].GetDay(dayIndex).isActive)
+        if (habits[getHabitIndex()].GetDay(dayIndex).isActive)
         {
-            List<string> tasks = habits[habitIndex].GetDay(dayIndex).tasks;
+            List<string> tasks = habits[getHabitIndex()].GetDay(dayIndex).tasks;
             foreach (string task in tasks)
             {
                 GameObject text = Instantiate(textPrefab, tasksDisplayContent.transform);
@@ -137,7 +148,7 @@ public class HabitController : MonoBehaviour
                 GameObject.Destroy(child.gameObject);
             }
             //Add Tasks
-            List<string> tasks = habits[habitIndex].GetDay(i).tasks;
+            List<string> tasks = habits[getHabitIndex()].GetDay(i).tasks;
             foreach (string task in tasks)
             {
 
@@ -178,17 +189,18 @@ public class HabitController : MonoBehaviour
     public void LoadHabitSchedule()
     {
         //TestCode
-        SetHabitIndex(0);
+        //SetHabitIndex(0);
         LoadMinutesAndSec();
-        Debug.Log(habits[habitIndex].HabitName);
-        Debug.Log(habits[habitIndex].PetName);
+        //Debug.Log(habits[getHabitIndex()].HabitName);
+        //Debug.Log(habits[getHabitIndex()].PetName);
         
 
         //Set up colors 
         for (int i = 0; i < 7; i++)
         {
-            Debug.Log(habits[habitIndex].GetDay(i).isActive);
-            if (habits[habitIndex].GetDay(i).isActive)
+            //Debug.Log(habits[getHabitIndex()].GetDay(i).isActive);
+            Debug.Log("THIS IS IN LOAD HABIT SCHEDULE " + habits[getHabitIndex()].HabitName + " {}{} " + getHabitIndex());
+            if (habits[getHabitIndex()].GetDay(i).isActive)
             {
                 ColorBlock cb = dayBtns[dayIndex].colors;
                 cb.normalColor = Color.green;
@@ -210,14 +222,14 @@ public class HabitController : MonoBehaviour
         }
 
         //Load data for current day of habit
-        if (habits[habitIndex].GetDay(dayIndex).isActive)
+        if (habits[getHabitIndex()].GetDay(dayIndex).isActive)
         {
             LoadTasks();
-            hours.value = 12 - habits[habitIndex].GetTime(dayIndex).hour;
-            minutes.value = habits[habitIndex].GetTime(dayIndex).minute;
-            ampm.value = habits[habitIndex].GetTime(dayIndex).ampm;
-            beforeOffset.value = habits[habitIndex].GetDay(dayIndex).beforeOffset;
-            afterOffset.value = habits[habitIndex].GetDay(dayIndex).afterOffset;
+            hours.value = 12 - habits[getHabitIndex()].GetTime(dayIndex).hour;
+            minutes.value = habits[getHabitIndex()].GetTime(dayIndex).minute;
+            ampm.value = habits[getHabitIndex()].GetTime(dayIndex).ampm;
+            beforeOffset.value = habits[getHabitIndex()].GetDay(dayIndex).beforeOffset;
+            afterOffset.value = habits[getHabitIndex()].GetDay(dayIndex).afterOffset;
 
 
         }
@@ -233,7 +245,7 @@ public class HabitController : MonoBehaviour
     public void OnSelect(int dayIndex)
     {
         selectedIndicator.transform.position = dayBtns[dayIndex].transform.position;
-        Debug.Log(selectedIndicator.transform.position);
+        //Debug.Log(selectedIndicator.transform.position);
         LoadTasks();
     }
 
@@ -242,10 +254,10 @@ public class HabitController : MonoBehaviour
         
         if(dayIndex >= 0 && dayIndex < 7)
         {
-            habits[habitIndex].SetActiveDay(dayIndex, !habits[habitIndex].GetDay(dayIndex).isActive);
+            habits[getHabitIndex()].SetActiveDay(dayIndex, !habits[getHabitIndex()].GetDay(dayIndex).isActive);
             foreach(string task in temp)
             {
-                habits[habitIndex].GetDay(dayIndex).tasks.Add(task);
+                habits[getHabitIndex()].GetDay(dayIndex).tasks.Add(task);
             }
             UpdateDayButtons();
         }
@@ -255,8 +267,8 @@ public class HabitController : MonoBehaviour
     {
         for (int i = 0; i < 7; i++)
         {
-            Debug.Log(habits[habitIndex].GetDay(i).isActive);
-            if (habits[habitIndex].GetDay(i).isActive)
+           // Debug.Log(habits[getHabitIndex()].GetDay(i).isActive);
+            if (habits[getHabitIndex()].GetDay(i).isActive)
             {
 
                 ColorBlock cb = dayBtns[i].colors;
@@ -278,14 +290,14 @@ public class HabitController : MonoBehaviour
 
     public void IncreaseProgress(float amount)
     {
-        habits[habitIndex].IncreaseProgress(amount);
+        habits[getHabitIndex()].IncreaseProgress(amount);
         UpdateProgressSlider();
-        Debug.Log(habits[habitIndex].Progress);
+        //Debug.Log(habits[getHabitIndex()].Progress);
     }
 
     public void UpdateProgressSlider()
     {
-        progressBar.value = habits[habitIndex].Progress;
+        progressBar.value = habits[getHabitIndex()].Progress;
     }
 
     public void SetDayIndex(int dayIndex)
@@ -296,23 +308,100 @@ public class HabitController : MonoBehaviour
 
     public void SetHabitIndex(int habitIndex)
     {
-        this.habitIndex = habitIndex;
+        currPetListItem.GetComponent<PetListItem>().setHabitIndex(habitIndex);
         petName.GetComponent<TextMeshProUGUI>().text = "Name : " + getCurrHabit().Pet.PetName;
         petAge.GetComponent<TextMeshProUGUI>().text = "Age : " + getCurrHabit().Pet.Age;
     }
     
     public int getHabitIndex()
     {
-        return habitIndex;
+        //Debug.Log("THE CURRENT INDEX IS::   "+currPetListItem.GetComponent<PetListItem>().getHabitIndex()); //switches back to 0 when hitting the premade one
+        return currPetListItem.GetComponent<PetListItem>().getHabitIndex();
     }
+
     public List<Habit> Habits
     {
         get { return habits; }
         set { habits = value; }
     }
+    
+    public void MakeNewHabit()
+    {
+        string habitName = habitNameInput.GetComponent<TMP_InputField>().text;
+        string petName = petNameInput.GetComponent<TMP_InputField>().text;
+
+        int prevHabitIndex = currPetListItem.getHabitIndex();
+
+        habits.Add(new Habit(habitName, petName));
+        GameObject newHabit = Instantiate(petListItemPrefab, petListScrollArea.transform);
+        newHabit.transform.parent = contentObject.transform;
+        PetListItem petListItemObject = newHabit.GetComponent<PetListItem>();
+        petListItemObject.setHabitName(habitName);
+        petListItemObject.setHabitIndex(prevHabitIndex + 1);
+        currPetListItem = petListItemObject;
+        petListItemObject.transform.Find("PetPlaceholder").GetComponent<Image>().sprite = petSprite;
+
+        //Set Onclick for the text button
+        //petListItemObject.transform.Find("HabitText").GetComponent<Button>().onClick.AddListener(delegate { SetHabitIndex(currPetListItem.getHabitIndex()); });
+        petListItemObject.transform.Find("HabitText").GetComponent<Button>().onClick.AddListener(delegate { SetHabitIndex(getClickedHabit(EventSystem.current)); }); // get array pos based on the name of what you clicked on?
+        petListItemObject.transform.Find("HabitText").GetComponent<Button>().onClick.AddListener(delegate { pageController.GetComponent<PageController>().ToPage("PetPage"); });
+        petListItemObject.transform.Find("HabitText").GetComponent<Button>().onClick.AddListener(delegate { LoadHabitSchedule(); });
+
+        //Set OnClick for the calendar button
+        petListItemObject.transform.Find("CalendarButton").GetComponent<Button>().onClick.AddListener(delegate { SetHabitIndex(getClickedHabitFromCalendarButton(EventSystem.current)); });
+        petListItemObject.transform.Find("CalendarButton").GetComponent<Button>().onClick.AddListener(delegate { LoadHabitSchedule(); });
+        petListItemObject.transform.Find("CalendarButton").GetComponent<Button>().onClick.AddListener(delegate { pageController.GetComponent<PageController>().ToPage("SchedulePage"); });
+        petListItemObject.transform.Find("CalendarButton").GetComponent<Button>().onClick.AddListener(delegate { LoadTasks(); });
+
+        petListItemAdd.transform.SetAsLastSibling();
+    }
 
     public Habit getCurrHabit()
     {
-        return Habits[habitIndex];
+        return Habits[getHabitIndex()];
+    }
+
+    public int getClickedHabit(EventSystem buttonClicked)
+    {
+        int index = -1;
+        int i = 0;
+        Debug.Log("1one: " + index);
+
+        while (!habits[i].HabitName.Equals(buttonClicked.currentSelectedGameObject.GetComponent<TMP_Text>().text))
+        {
+            Debug.Log(habits[i].HabitName + " ,1,,and,,, "+ buttonClicked.currentSelectedGameObject.GetComponent<TMP_Text>().text);
+            i++;   
+        }
+        Debug.Log(habits[i].HabitName + " ,2,,and,,, " + buttonClicked.currentSelectedGameObject.GetComponent<TMP_Text>().text);
+        if (habits[i].HabitName.Equals(buttonClicked.currentSelectedGameObject.GetComponent<TMP_Text>().text)) 
+        {
+            index = i;
+            Debug.Log("1two: " + index);
+        }
+        Debug.Log("1three: " + index);
+        return index;
+    }
+
+    public int getClickedHabitFromCalendarButton(EventSystem buttonClicked)
+    {
+        int index = -1;
+        int i = 0;
+        Debug.Log("2one: " + index);
+        Debug.Log(buttonClicked.currentSelectedGameObject.transform.parent.Find("HabitText").GetComponent<TMP_Text>().text);
+
+        while (!habits[i].HabitName.Equals(buttonClicked.currentSelectedGameObject.transform.parent.Find("HabitText").GetComponent<TMP_Text>().text)) //change made
+        {
+            Debug.Log(habits[i].HabitName + " ,1,,and,,, " + buttonClicked.currentSelectedGameObject.transform.parent.Find("HabitText").GetComponent<TMP_Text>().text);
+            i++;
+        }
+        Debug.Log(habits[i].HabitName + " ,2,,and,,, " + buttonClicked.currentSelectedGameObject.transform.parent.Find("HabitText").GetComponent<TMP_Text>().text);
+        if (habits[i].HabitName.Equals(buttonClicked.currentSelectedGameObject.transform.parent.Find("HabitText").GetComponent<TMP_Text>().text))//change made
+        {
+            Debug.Log(buttonClicked.currentSelectedGameObject.transform.parent.Find("HabitText").GetComponent<TMP_Text>().text);
+            index = i;
+            Debug.Log("2two: " + index);
+        }
+        Debug.Log("2three: " + index);
+        return index;
     }
 }
