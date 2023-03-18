@@ -52,6 +52,10 @@ public class HabitController : MonoBehaviour
         //dayBtns[dayIndex].Select();
         selectedIndicator.transform.position = dayBtns[dayIndex].transform.position;
         //Debug.Log(selectedIndicator.transform.position);
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
     }
 
 

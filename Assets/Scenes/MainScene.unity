@@ -9725,7 +9725,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!198 &845886797
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -14698,7 +14698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -885, y: -75}
+  m_AnchoredPosition: {x: -884.99994, y: -75}
   m_SizeDelta: {x: -1820, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &878874506
@@ -17579,7 +17579,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -119.99991, y: -889}
+  m_AnchoredPosition: {x: -119.99994, y: -889}
   m_SizeDelta: {x: -1820, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1201008139
@@ -21591,7 +21591,7 @@ MonoBehaviour:
   habitController: {fileID: 953584653}
   ps: {fileID: 0}
   psSpritePositive: {fileID: 21300000, guid: 7fd30b852d2429f46b70d19ba31c0c80, type: 3}
-  psSpriteNegative: {fileID: 21300000, guid: 983794b9bcab85445acdc1877f3fff2b, type: 3}
+  psSpriteNegative: {fileID: 21300000, guid: fc783e843c9e6a941ba251c2cc8eec94, type: 3}
   isAnimationOn: 1
 --- !u!50 &1523628228
 Rigidbody2D:
